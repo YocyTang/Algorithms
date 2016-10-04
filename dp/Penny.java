@@ -5,7 +5,7 @@ public class Solution{
 		for(int i =0; i< N; i++){
 			pd[i][0] = 1;
 		}
-		for(int i = 1; i< N; i++){
+		for(int i = 1; penny[0]*i<= target; i++){
 			pd[0][penny[0]*i] =1;
 		}
 		for(int i = 1;i < N; i++){
