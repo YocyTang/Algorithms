@@ -10,7 +10,7 @@ public class Solution{
 		}
 		for(int i = 1;i < N; i++){
 			for(int j = 0;j<=target;j++){
-				if(j >= penny){
+				if(j >= penny[i]){
 					pd[i][j] = pd[i-1][j]+pd[i][j-penny[i]];
 				} else{
 					pd[i][j] = pd[i-1][j]
