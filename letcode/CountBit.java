@@ -11,4 +11,11 @@ public class CountBit{
 		}
 		return count;
 	}
+	public int solution2(int n){
+		int count =0;
+		while(n){
+			count++;
+			n = (n-1)&n;
+		}
+	}
 }
