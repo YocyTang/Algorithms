@@ -6,6 +6,8 @@ public class MirrorTree{
 		if(root.left==null && root.right == null){
 			return;
 		}
+
+		
 		TreeNode tmp = root.left;
 		root.left = root.right;
 		root.right = tmp;
