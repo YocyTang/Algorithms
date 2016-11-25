@@ -16,9 +16,10 @@ public class QuickSort{
 			while(less(a[++i], key)) if(i = hi) break;
 			while(less(key, a[--j])) if(j = lo) break;
 			if(i>=j) break;
-			exch(a, lo, j);
-			return j;
+			exch(a, i, j);
 		}
+		exch(a, lo, j);
+		return j;
 	}
 	public static Comparable select(Comparable[] a, int k){
 		StdRandom.shuffle(a);
