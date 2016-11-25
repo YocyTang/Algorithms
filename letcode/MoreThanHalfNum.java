@@ -1,4 +1,8 @@
 public class MoreThanHalfOfNum{
+	//找到数组中出现次数超过一半的数字
+
+	//思想：如果一个数字超过一半，
+	//那么这个数组的中位数就一定是这个数
 	public int findNumber(int[] nums){
 		int n = nums.length-1;
 		int index = partition(nums, 0, n);
