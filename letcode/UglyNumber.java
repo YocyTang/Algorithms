@@ -5,7 +5,9 @@ public class uglyNumber{
 		}
 		int[] nums = new int[index];
 		nums[0] = 1;
-		int index2 = index3 = index5 = 0;
+		int index2 =0, 
+			index3 =0,
+			index5 = 0;
 		int nextIndex = 1;
 		while(nextIndex < index){
 			int min = Math.min(nums[index2]*2, nums[index3]*3, nums[index5]*5);
