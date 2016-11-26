@@ -12,13 +12,13 @@ public class uglyNumber{
 		while(nextIndex < index){
 			int min = Math.min(nums[index2]*2, nums[index3]*3, nums[index5]*5);
 			nums[nextIndex];
-			while(nums[index2]*2<min){
+			while(nums[index2]*2<=min){
 				index2++;
 			}
-			while(nums[index3]*3<min){
+			while(nums[index3]*3<=min){
 				index3++;
 			}
-			while(nums[index5]*5<min){
+			while(nums[index5]*5<=min){
 				index5++;
 			}
 			nextIndex++;
