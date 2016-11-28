@@ -1,6 +1,6 @@
 public class GetNumberOfK{
 	public int core(int[] data, int k){
-		if(data == null || data.length=0){
+		if(data == null || data.length==0){
 			return 0;
 		}
 		int number = 0;
