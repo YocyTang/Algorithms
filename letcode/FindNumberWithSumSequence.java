@@ -21,7 +21,7 @@ public class FindNumberWithSumSequence{
 			}
 			big++;
 			sum +=big;
-			tmp.add(small[big]);
+			tmp.add(big);
 		}
 		return res;
 		for(int i = 0; i<target/2+1; i++){
