@@ -2,16 +2,16 @@ public ListNode swapPairs(ListNode head){
 	if(head == null || head.next == null){
 		return head;
 	}
-	ListNode h = new ListNode(0);
-	h.next = head;
-	ListNode p = h;
-	while(p.next!=null&&p.next.next!= null){
-		ListNode t = p;
-		p = p.next;
-		t = p.next;
-		ListNode x = p.next.next;
-		p.next.next = p;
-		p.next= x;
+	ListNode first = new ListNode(0);
+	first.next = head;
+	ListNode curr = first;
+	while(curr.next!=null && curr.next.next!=null){
+		ListNode follow = curr.next;
+		ListNode pre = curr.next.next;
+		curr.next = pre;
+		follow.next = pre.next;
+		pre.next = follow;
+		curr = follow;
 	}
-	return  h.next;
+	return first.next;
 }
