@@ -1,3 +1,4 @@
+//merge  链表的归并排序
 public ListNode SortList(ListNode head){
 	if(head == null || head.next==null){
 		return head;
@@ -32,3 +33,58 @@ private ListNode merge(ListNode l1, ListNode l2){
 	}
 	return first.next;
 }
+
+
+//quickSort 链表快速排序
+public ListNode SortList2(ListNode head){
+	if (head== null || head.next == null) {
+		return head;
+	}
+	ListNode mid = getMid(head);
+	ListNode leftHead= new ListNode(0);
+	ListNode leftTail = leftHead;
+	ListNode rightHead = new ListNode(0);
+	ListNode rightTail = rightHead;
+	ListNode midHead = new ListNode(0);
+	ListNode midTail = midHead;
+	while(head!=null){
+		if(head.val<mid.val){
+			leftTail.next = head;
+			leftTail =head;
+		}else if(head.val>mid.val){
+			rightTail.next = head;
+			rightTail = head;
+		}else{
+			midHead.next = head;
+			midHead = head;
+		}
+		head = head.next;
+	}
+	leftTail.next = null;
+	midTail.next = null;
+	rightTail.next = null;
+	ListNode left = SortList2(leftHead.next);
+	ListNode right = SortList2(rightHead.next);
+	return concat(left,  midHead.next, right);
+}
+private ListNode concat(ListNode left, ListNode mid, ListNode right){
+	ListNode head = new ListNode(0);
+	ListNode tail = head;
+	tail.next=left;
+	tail = getTail();
+	tail.next = mid;
+	tail = getTail();
+	tail.next = right;
+	tail = getTail();
+	return head.next;
+}
+private ListNode getTail(ListNode head){
+	if(head== null || head.next == null){
+		return head;
+	}
+	while(head.next!=null){
+		head= head.next
+	}
+	return head;
+}
+
