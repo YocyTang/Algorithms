@@ -106,28 +106,26 @@ public List<Integer> PostOrder(TreeNode root){
 	if(root== null){
 		return res;
 	}
-	Integer i = new Integer(1);
-	List<TreeNode> stackTree = new LinkedList<TreeNode>();
-	List<Integer> stackInt = new LinkedList<Integer>();
-	while(root!=null|| !stackTree.isEmpty()){
+	List<TreeNode> stack = new LinkedList<TreeNode>();
+	TreeNode pre = root;
+	while(root!=null|| !stack.isEmpty()){
 		while(root!=null){
-			stackTree.add(root);
-			stackInt.add(new Integer(0));
+			stack.add(root);
 			root = root.left;
 		}
-		while(!stackTree.isEmpty() && stackInt.peek().eqauls(i)){
-			stackInt.pop();
-			res.add(stackTree.pop().val);
-		}
-		if(!stackTree.isEmpty()){
-			stackInt.pop();
-			stackInt.add(new Integer(1));
-			root= stackTree.peek();
-			root = root.right;
-			root = stack.remove(stack.size());
-
+		if(!stack.isEmpty()){
+			TreeNode tmp= stack.peek().right;
+			if(tmp== null|| tmp== pre){
+				root = stack.remove(stack.size());
+				res.add(root.val);
+				pre = root;
+				root = null;
+			}else {
+				root= tmp;
+			}
 		}
 	}
+	return res;
 }
 
 
@@ -138,14 +136,21 @@ public List<List<Integer>> levelLoop(TreeNode root){
 		return res;
 	}
 	List<Integer> tmp = new ArrayList<Integer>();
-	List<TreeNode> stack = new LinkedList<TreeNode>();
-	stack.add(root);
-	while(!stack.isEmpty()){
+	Queue<TreeNode> curr = new LinkedList<TreeNode>();
+	Queue<TreeNode> next = new LinkedList<TreeNode>();
+	curr.add(root);
+	while(!curr.isEmpty()){
 		root = stack.remove();
 		tmp.add(root.val);
-		if(stack.isEmpty()){
-			stack.add(root.left);
-			stack.add(root.right);
+		if(root.left!=null){
+			next.offer(root.left);
+		}
+		if(root.right!=null){
+			next.offer(root.right)
+		}
+		if(curr.isEmpty()){
+			curr = next;
+
 			res.add(new ArrayList(tmp));
 		}
 	}
