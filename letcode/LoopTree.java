@@ -108,20 +108,21 @@ public List<Integer> PostOrder(TreeNode root){
 	}
 	List<TreeNode> stack = new LinkedList<TreeNode>();
 	TreeNode pre = root;
-	while(root!=null|| !stack.isEmpty()){
-		while(root!=null){
-			stack.add(root);
-			root = root.left;
+	TreeNode node = root;
+	while(node!=null|| !stack.isEmpty()){
+		while(node!=null){
+			stack.add(node);
+			node = node.left;
 		}
 		if(!stack.isEmpty()){
 			TreeNode tmp= stack.peek().right;
 			if(tmp== null|| tmp== pre){
-				root = stack.remove(stack.size());
-				res.add(root.val);
-				pre = root;
-				root = null;
+				node= stack.remove(stack.size());
+				res.add(node.val);
+				pre = node;
+				node= null;
 			}else {
-				root= tmp;
+				node= tmp;
 			}
 		}
 	}
