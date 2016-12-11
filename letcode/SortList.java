@@ -71,11 +71,10 @@ private ListNode concat(ListNode left, ListNode mid, ListNode right){
 	ListNode head = new ListNode(0);
 	ListNode tail = head;
 	tail.next=left;
-	tail = getTail();
+	tail = getTail(head);
 	tail.next = mid;
-	tail = getTail();
+	tail = getTail(tail);
 	tail.next = right;
-	tail = getTail();
 	return head.next;
 }
 private ListNode getTail(ListNode head){
