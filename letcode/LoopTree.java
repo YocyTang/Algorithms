@@ -38,6 +38,7 @@ public List<Integer> TreeLoopRe(TreeNode root){
 			root = root.right;
 		}
 	}
+	return res;
 }
 
 // 中序遍历递归
@@ -78,6 +79,7 @@ public List<Integer> Inorder(TreeNode root){
 			root = root.right;
 		}
 	}
+	return res;
 }
 
 
