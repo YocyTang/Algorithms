@@ -47,3 +47,25 @@ public class MoreThanHalfOfNum{
 		nums[j] = tmp;
 	}
 }
+
+
+
+//思路二：不用修改原数组，时间复杂度也为n
+public int findNumber(int[] nums){
+	if(nums == null || nums.length==0){
+		return -1;
+	}
+	int n = nums.length;
+	int result = nums[0];
+	int time = 1;
+	for(int i =1; i< n; i++){
+		if(time == 0){
+			result = nums[i];
+		}else if(nums[i] == result){
+			time++;
+		}else{
+			time--;
+		}
+	}
+	return result;
+}
