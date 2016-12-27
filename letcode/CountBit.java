@@ -3,7 +3,7 @@ public class CountBit{
 	public int solution1(int n){
 		int count = 0;
 		int flag= 1;
-		while(flag!=Math.pow(2, 7)){
+		while(flag>0){
 			if((flag & n) !=0){
 				count++;
 			}
