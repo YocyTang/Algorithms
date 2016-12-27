@@ -4,7 +4,7 @@ public class CountBit{
 		int count = 0;
 		int flag= 1;
 		while(flag!=Math.pow(2, 7)){
-			if((flag & n) ==1){
+			if((flag & n) !=0){
 				count++;
 			}
 			flag = flag<<1;
