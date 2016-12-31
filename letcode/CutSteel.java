@@ -3,9 +3,9 @@
 public int cut(int[] price, int n){
 	int[] dp = new int[n+1];
 	dp[0] = 0;
-	for(int i = 1; i< n; i++){
+	for(int i = 1; i<= n; i++){
 		int tmp = -1;
-		for(int j = 1; j<i; j++){
+		for(int j = 1; j<=i; j++){
 			tmp = Math.max(q, dp[i-j]+p[i]);
 		}
 		dp[i] = tmp;
