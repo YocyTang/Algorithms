@@ -26,19 +26,18 @@ public List<Integer> TreeLoopRe(TreeNode root){
 	if(root == null){
 		return res;
 	}
-	List<TreeNode> stack = new LinkedList<TreeNode>();
-	while(root!=null || !stack.isEmpty()){
-		while(root!=null){
-			res.add(root.val);
-			stack.add(root);
-			root = root.left;
+	LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+	stack.addFirst(root);
+	while(!stack.isEmpty()){
+		TreeNode tmp = stack.removeFirst();
+		res.add(res.val);
+		if(res.left!=null){
+			stack.addFirst(res.left);
 		}
-		if(!stack.isEmpty()){
-			root = stack.remove(stack.size());
-			root = root.right;
+		if(res.right!= null){
+			stack.addFirst(res.right);
 		}
 	}
-	return res;
 }
 
 // 中序遍历递归
@@ -67,14 +66,14 @@ public List<Integer> Inorder(TreeNode root){
 	if(root == null){
 		return res;
 	}
-	List<TreeNode> stack = new LinkedList<TreeNode>();
+	LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
 	while(root!=null||!stack.isEmpty()){
 		while(root!=null){
-			stack.add(root);
+			stack.addFirst(root);
 			root = root.left;
 		}
 		if(!stack.isEmpty()){
-			root = stack.remove(stack.size());
+			root = stack.removeFirst();
 			res.add(root.val);
 			root = root.right;
 		}
@@ -108,18 +107,18 @@ public List<Integer> PostOrder(TreeNode root){
 	if(root== null){
 		return res;
 	}
-	List<TreeNode> stack = new LinkedList<TreeNode>();
+	LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
 	TreeNode pre = root;
 	TreeNode node = root;
 	while(node!=null|| !stack.isEmpty()){
 		while(node!=null){
-			stack.add(node);
+			stack.addFirst(node);
 			node = node.left;
 		}
 		if(!stack.isEmpty()){
 			TreeNode tmp= stack.peek().right;
 			if(tmp== null|| tmp== pre){
-				node= stack.remove(stack.size());
+				node= stack.removeFirst();
 				res.add(node.val);
 				pre = node;
 				node= null;
