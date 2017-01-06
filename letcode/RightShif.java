@@ -3,7 +3,7 @@ public void RightShift(int[] a, int k){
 	if(k<0){
 		throw new RuntimeException();
 	}
-	if(a == null|| a.length == 0|| k == 0){
+	if(a == null|| a.length == 0){
 		return;
 	}
 
