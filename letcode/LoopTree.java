@@ -142,18 +142,20 @@ public List<List<Integer>> levelLoop(TreeNode root){
 	Queue<TreeNode> next = new LinkedList<TreeNode>();
 	curr.add(root);
 	while(!curr.isEmpty()){
-		root = stack.remove();
+		TreeNode node = curr.remove();
 		tmp.add(root.val);
-		if(root.left!=null){
-			next.offer(root.left);
+		if(node.left!=null){
+			next.offer(node.left);
 		}
-		if(root.right!=null){
-			next.offer(root.right)
+		if(node.right!=null){
+			next.offer(node.right)
 		}
 		if(curr.isEmpty()){
 			curr = next;
 
-			res.add(new ArrayList(tmp));
+			res.add(tmp);
+			tmp = new ArrayList<Integer>();
+			next = LinkedList<TreeNode>();
 		}
 	}
 	return res;
