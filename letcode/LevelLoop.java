@@ -21,6 +21,7 @@ public class LevelLoop{
 				curr= next;
 				res.add(tmp);
 				tmp = new ArrayList<Integer>();
+				next = new LinkedList<TreeNode>();
 			}
 		}
 		return res;
