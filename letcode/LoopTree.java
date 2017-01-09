@@ -31,11 +31,11 @@ public List<Integer> TreeLoopRe(TreeNode root){
 	while(!stack.isEmpty()){
 		TreeNode tmp = stack.removeFirst();
 		res.add(res.val);
-		if(res.left!=null){
-			stack.addFirst(res.left);
-		}
-		if(res.right!= null){
+		if(res.right!=null){
 			stack.addFirst(res.right);
+		}
+		if(res.left!= null){
+			stack.addFirst(res.left);
 		}
 	}
 }
