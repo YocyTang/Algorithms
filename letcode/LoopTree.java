@@ -27,6 +27,7 @@ public List<Integer> TreeLoopRe(TreeNode root){
 		return res;
 	}
 	LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+	/// queue;;
 	stack.addFirst(root);
 	while(!stack.isEmpty()){
 		TreeNode tmp = stack.removeFirst();
