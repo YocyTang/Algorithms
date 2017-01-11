@@ -1,29 +1,31 @@
 public class Solution{
 	public double findMid(int[] nums1, int[] nums2){
-		int n = nums1.length;
-		int m = nums2.length;
-		int[] res = new int[m+n];
-		int i = 0;
-		int j = 0;
-		for(int k = 0; k < i+j; k++){
-			if(i>=n){
-				res[k] = nums2[j++];
-			}else if(j>=m){
-				res[k] = nums1[i++];
-			}else if(nums1[i] <nums2[j]){
-				res[k] = nums1[i++];
-			}else {
-				res[k] = nums2[j++];
-			}
+		int len = nums1.length+nums2.length;
+		if(len%2 == 1){
+			return (double)findkth(nums1, 0, nums2, 0, len/2+1);
 		}
-		int mid = (m+n-1)/2;
-		double result = 0.0;
-		if((m+n)%2 == 0){
-			result = (res[mid]+res[mid+1])/2.0;
-		}else {
-			result = res[mid];
+		else{
+			double x = (double)findkth(nums1,0, nums2, 0, len/2);
+			double y = (double)findkth(nums1, 0, nums2, 0, len/2+1);
+			return (x+y)/2.0;
 		}
-
-		return result;
+	}
+	private int findkth(int[] a, int startA, int[] b, int startB, int k){
+		if(startA>a.length){
+			return b[startB+k-1];
+		}
+		if(startB>b.length){
+			return b[startB+k-1];
+		}
+		if(k == 1){
+			return Math.min(a[startA], b[startB]);
+		}
+		int aKey = startA+k/2-1<a.length?a[startA+k/2-1]:Integer.MAX_VALUE;
+		int bKey = startB+k/2-1<b.length?b[startB+k/2-1]:Integer.MAX_VALUE;
+		if(aKey< bKey){
+			return findkth(a, startA+k/2, b, startB, k-k/2);
+		}else{
+			return findkth(a, startA, b, startB+k/2, k-k/2);
+		}
 	}
 }
