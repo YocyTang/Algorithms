@@ -11,7 +11,7 @@ public class uglyNumber{
 		int nextIndex = 1;
 		while(nextIndex < index){
 			int min = Math.min(nums[index2]*2, nums[index3]*3, nums[index5]*5);
-			nums[nextIndex];
+			nums[nextIndex]=min;
 			while(nums[index2]*2<=min){
 				index2++;
 			}
