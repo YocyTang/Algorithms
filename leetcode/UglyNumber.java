@@ -1,5 +1,5 @@
 public class uglyNumber{
-	public int nthUglyNumber(int index){
+	public static int nthUglyNumber(int index){
 		if(index<=0){
 			return 0;
 		}
