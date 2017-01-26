@@ -10,7 +10,7 @@ public class VerifySequenceOfBST{
 	private boolean core(int[] order, int start, int end){
 		int root = order[end]; 
 		int index = start;
-		while(index<end){
+		while(index<end+1){
 			if(order[index]>root){
 				break;
 			}
