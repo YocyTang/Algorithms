@@ -16,7 +16,7 @@ public class VerifySequenceOfBST{
 			}
 			index++;
 		}
-		for(int i = index; i< end; i++){
+		for(int i = index; i<= end; i++){
 			if(order[i] < root){
 				return false;
 			}
