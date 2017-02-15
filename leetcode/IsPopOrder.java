@@ -7,9 +7,9 @@ public boolean  isPopOrder(int[] push, int[] pop){
 	int popIndex = 0;
 	for(int pushIndex = 0; pushIndex< n; i++){
 		stack.addFirst(push[pushIndex]);
-		while(!stack.isEmpty() && stack.getFirst() == pop[j]){
+		while(!stack.isEmpty() && stack.getFirst() == pop[popIndex]){
 			stack.pop();
-			j++;
+			popIndex++;
 		
 		}
 	}
