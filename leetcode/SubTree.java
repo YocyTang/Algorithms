@@ -2,13 +2,15 @@ public class SubTree{
 	public boolean isSubTree(TreeNode root1, TreeNode root2){
 		boolean res = false;
 		if(root1!=null && root2 != null){
-			res = isSubTreeHelper(root1, root2);
-		}
-		if(!res){
-			res = isSubTree(root1.left, root2);
-		}
-		if(!res){
-			res = isSubTree(root1.right, root2);
+			if(root1.val == root2.val){
+				res = isSubTreeHelper(root1, root2);
+			}
+			if(!res){
+				isSubTree(root1.left, root2);
+			}
+			if(!res){
+				isSubTree(root1.right, root2);
+			}
 		}
 		return res;
 	}
