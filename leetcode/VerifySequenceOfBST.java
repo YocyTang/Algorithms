@@ -8,6 +8,9 @@ public class VerifySequenceOfBST{
 		return core(order, 0, end);
 	}
 	private boolean core(int[] order, int start, int end){
+		if(start == end){
+			return true;
+		}
 		int root = order[end]; 
 		int index = start;
 		while(index<end+1){
