@@ -18,9 +18,9 @@ private void convertTree(TreeNode root, TreeNode tailOfList){
 	if(root.left!=null){
 		convertTree(root.left, tailOfList);
 	}
-	tailOfList.right = current;
-	if(current!=null){
-		current.right = tailOfList;
+	current.left = tailOfList;
+	if(tailOfList!=null){
+		tailOfList.right = current;
 	}
 	tailOfList = current;
 	if(root.right!=null){
