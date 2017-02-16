@@ -8,7 +8,7 @@ public static int maxSuArraySum(int[] a){
 	int sum = a[0];
 	for(int i = 1; i< n ; i++){
 		sum = Math.max(sum+a[i], a[i]);
-		max = Math.max(max, sum[i]);
+		max = Math.max(max, sum);
 	}
 	return max;
 }
