@@ -20,7 +20,7 @@ private static void List<Integer> help(int[] nums, int start, int end, List<List
 
 	for(int i = start, i<=end; i++){
 		swap(nums, i, start);
-		help(nums, start+1,end; res);
+		help(nums, start+1,end, res);
 		swap(nums, i, start);
 	}
 }
