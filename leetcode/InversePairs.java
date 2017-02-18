@@ -9,13 +9,14 @@ public class InversePairs{
 			copy[i] = data[i];
 		}
 		int count = InversePairsCore(data, copy, 0, n-1);
+		return count;
 	}
 	public int InversePairsCore(int[] data, int[] copy, int start, int end){
 		if(start == end){
 			copy[start] = data[start];
 			return 0;
 		}
-		int len  = (end-start)/2;
+		int len  = start+(end-start)/2;
 		int left = InversePairsCore(copy, data, start, start+len);
 		int right = InversePairsCore(copy, data, start+len+1, end);
 
