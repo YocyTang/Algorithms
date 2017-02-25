@@ -1,4 +1,4 @@
-//二叉树的遍历
+	//二叉树的遍历
 
 //前序递归
 public List<Integer> TreeLoopRe(TreeNode root){
@@ -31,12 +31,12 @@ public List<Integer> TreeLoopRe(TreeNode root){
 	stack.addFirst(root);
 	while(!stack.isEmpty()){
 		TreeNode tmp = stack.removeFirst();
-		res.add(res.val);
-		if(res.right!=null){
-			stack.addFirst(res.right);
+		res.add(tmp.val);
+		if(tmp.right!=null){
+			stack.addFirst(tmp.right);
 		}
-		if(res.left!= null){
-			stack.addFirst(res.left);
+		if(tmp.left!= null){
+			stack.addFirst(tmp.left);
 		}
 	}
 }
