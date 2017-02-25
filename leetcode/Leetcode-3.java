@@ -21,4 +21,29 @@ public class Solution{
 		}
 		return res;
 	}
+	public String maxPrefixString(String s){
+		if(s == null || s.length() ==0){
+			return null;
+		}
+		int n = s.length();
+		int R[] = new int[n];
+		for(int i = 0; i< n; i++){
+			R[i] = -1;
+		}
+		int left = 0;
+		int len = 0;
+		int start = 0;
+		int end = 0;
+		for(int i = 0; i< n; i++){
+			if(R[s.charAt(i)]>=left){
+				left = R[s.charAt(i)]+1;
+			}
+			R[s.charAt(i)] = i;
+			if(res<i-left+1){
+				start = left;
+				end = i;
+			}
+		}
+		return s.substring(start, end+1);
+	}
 }
