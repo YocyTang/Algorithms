@@ -13,8 +13,8 @@ public class QuickSort{
 		int i = lo, j = hi+1;
 		Comparable key = a[lo];
 		while(true){
-			while(less(a[++i], key)) if(i = hi) break;
-			while(less(key, a[--j])) if(j = lo) break;
+			while(less(a[++i], key)) if(i == hi) break;
+			while(less(key, a[--j])) if(j == lo) break;
 			if(i>=j) break;
 			exch(a, i, j);
 		}
