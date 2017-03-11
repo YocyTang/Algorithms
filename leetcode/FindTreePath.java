@@ -7,6 +7,7 @@ public class FindTreePath{
 		}
 		List<Integer> tmp = new  ArrayList<Integer>();
 		int curr = 0;
+		int sum = 0;
 		find(root, sum, res, tmp, curr);
 		return res;
 	}
