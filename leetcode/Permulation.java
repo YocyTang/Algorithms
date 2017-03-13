@@ -10,7 +10,7 @@ public static List<List<Integer>> peomulation(int[] nums){
 }
 private static void List<Integer> help(int[] nums, int start, int end, List<List<Integer>> res){
 	if(start == end){
-		ArrayList temp = new ArrayList<Integer>();
+		ArrayList<Integer> temp = new ArrayList<Integer>();
 		for(int j = 0; j<=end;j++){
 			temp.add(nums[i]);
 		}
