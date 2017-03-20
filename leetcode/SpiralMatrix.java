@@ -12,7 +12,7 @@ public List<Integer> spiralOrder(int[][] matrix){
 	}
 	return res;
 }
-private spiralOrder(int[][] matrix, int rows, int cols, int start, List<Integer> res){
+private void spiralOrder(int[][] matrix, int rows, int cols, int start, List<Integer> res){
 	int endX = cols-start-1;
 	int endY= rows-start-1;
 	for(int i = start; i< endX; i++){
