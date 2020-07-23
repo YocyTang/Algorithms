@@ -1,0 +1,566 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+string fac1(int n);
+int getWidth(int n);
+
+int main(){
+    string s = fac1(10000);
+    cout<<s<<endl;
+    
+
+}
+
+
+/*
+    时间复杂度 N^2             2*(nlgn)^2
+    空间复杂度 NlgN
+*/
+string fac1(int n){
+    //求位数，O(n)
+    int width = getWidth(n);
+    int arr[width] = {0};
+    int count = 1;
+    arr[count] = 1;
+    
+    for(int i =1; i<=n; i++){
+        for(int j = 1; j<=count; j++){
+            arr[j] = arr[j]*i;
+        }
+        for(int j = 1; j<count; j++){
+            if(arr[j]>=10){
+                arr[j+1] += arr[j]/10;
+                arr[j] = arr[j]%10;
+            }
+        }
+        while(arr[count]>=10){
+            count++;
+            arr[count] += arr[count-1]/10;
+            arr[count-1] = arr[count-1]%10;
+        }
+    }
+    string res= "";
+    for(int i = count; i>=1; i--){
+        res.append(to_string(arr[i]));
+    }
+    return res;
+}
+
+/*
+计算阶乘的位数，时间复杂度O(n)。
+假设 10^m = N!  ==>  m = lg(N!); ==> m = lg1+lg2+lg3+...+lgN;
+*/
+int getWidth(int n){
+    double res = 0;
+    for(int i = 2; i<=n; i++){
+        res+= log10(i);
+    }
+    return (int)(res+2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+
+string fac2(int n);
+
+int main(){
+    string res = fac2(10000);
+    cout<<res<<endl;
+    return 0;
+}
+
+
+/*
+    时间复杂度 N^2
+    空间复杂度 NlgN
+*/
+string fac2(int n){
+    vector<int> arr;
+    arr.push_back(1);
+    int count = 1;
+    for(int i = 1; i<=n; i++){
+        for(int j = 0; j<count; j++){
+            arr[j] = arr[j]*i;
+        }
+        for(int j = 0; j<count-1; j++){
+            if(arr[j] >=10){
+                arr[j+1] += arr[j]/10;
+                arr[j]  = arr[j]%10;
+            }
+        }
+        while(arr[count-1]>=10){
+            count++;
+            arr.push_back(0);
+            arr[count-1] += arr[count-2]/10;
+            arr[count-2] = arr[count-2]%10;
+        }
+    }
+    string res = "";
+    for(int i = count-1; i>=0; i--){
+        res.append(to_string(arr[i]));
+    }
+    return res;
+}
+
+
+
+
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+string fac3(int n);
+string mulStr1(string s1, string s2);
+string mulStr2(string s1, string s2);
+
+
+int main(){
+    string res = fac3(1000);
+    //string res = mulStr2("123","456");
+    cout<<res<<endl;
+    return 0;
+}
+
+/*
+N^2
+*/
+string fac3(int n){
+    string res = "1";
+    for(int i = 2; i<=n; i++){
+        res = mulStr1(res, to_string(i));
+    }
+    return res;
+}
+
+string mulStr1(string s1, string s2){
+    int len = s1.size()+s2.size();
+    int arr[len]={0};
+    for(int i = s1.size()-1; i>=0 ; i--){
+        for(int j = s2.size()-1; j>=0; j--){
+            int mulRes = arr[i+j+1]+(s1[i]-'0')*(s2[j]-'0');
+            
+            arr[i+j+1] = mulRes%10;
+            arr[i+j]+= mulRes/10;
+        }
+    }
+    string ans= "";
+    for(int i = 0;i<len; i++){
+        if(ans.size() == 0 && arr[i] == 0){
+            continue;
+        }
+        ans.append(to_string(arr[i]));
+    }
+    return ans;
+}
+
+
+
+
+string mulStr2(string num1, string num2) {
+    string ans;
+    vector<int> a, b, c;
+    c.resize(num1.size() + num2.size() - 1);
+    for (int i = num1.size() - 1; i >= 0; i--) {
+        a.push_back(num1[i] - '0');
+    }
+    
+    for (int i = num2.size() - 1; i >= 0; i--){
+        b.push_back(num2[i] - '0');
+    } 
+    for (int i = 0; i < a.size(); i++) {
+        for (int j = 0; j < b.size(); j++) {
+            c[i + j] += a[i] * b[j];
+        }
+    }
+    int k = 0;
+    for (int i = 0; i < c.size(); i++) {
+        k += c[i];
+        char c = k % 10 + '0';
+        ans = c + ans;
+        k /= 10;
+    }
+    while (k) {
+        char c = k % 10 + '0';
+        ans = c + ans;
+        k /= 10;
+    }
+    while (ans.size() > 1 && ans[0] == '0'){
+        ans.erase(ans.begin());
+    } 
+    return ans;
+
+}
+
+
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+
+
+string fac4(int n);
+
+struct BigNum{
+    double head;
+    int tail;
+};
+int main(){
+    string res = fac4(1000);
+    cout<<res<<endl;
+}
+
+
+/*
+近似计算
+*/
+string fac4(int n){
+   
+    //在170！时会溢出，170!的计算结果大致为1e309
+    const double MAX_MANTISSA = 1e308/n;
+    BigNum bigNum;
+    double MAX_POW10_LOG=(floor(log10(1e308/n))); //最大尾数的常用对数的整数部分,  
+    double MAX_POW10=  (pow(10.00, MAX_POW10_LOG)); // 10 ^ MAX_POW10_LOG  
+    
+    bigNum.head = 1;
+    bigNum.tail = 0;
+
+    for(int i = 1; i<=n; i++){
+        if(bigNum.head>= MAX_MANTISSA){
+            bigNum.head/=MAX_POW10;
+            bigNum.tail+= MAX_POW10_LOG;
+        }
+        bigNum.head *= (double)i;
+    }
+
+    string res = to_string(bigNum.head)+"e+"+to_string(bigNum.tail);
+    return res;
+}
+
+
+
+
+
+
+#include <iostream>
+#include <cmath>
+#include <float.h>
+using namespace std;
+
+string fac5(int n);
+int getWidth(int n);
+
+
+int main(){
+    string res = fac5(10000);
+    cout<<res<<endl;
+}
+
+
+string fac5(int n){
+    const double max = 1e300;
+    int len = getWidth(n);
+    double head = 1.0;
+    for(int i = 1; i<=n; i++){
+        while(head*i>= max/10){
+            head = head/(double)10;
+        }
+        head *= i;
+    }
+    int headLen = to_string(head).size();
+    int repeat = len-headLen+7;
+    return to_string(head)+"e+"+to_string(repeat);
+    
+}
+
+int getWidth(int n){
+    double res = 0;
+    for(int i = 2; i<=n; i++){
+        res+= log10(i);
+    }
+    return (int)(res+1);
+}
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+string fac6(int n);
+
+int main(){
+    string res = fac6(10000);
+    cout<<res<<endl;
+}
+
+/*
+斯特林公式 n足够大时  n! == √(2*PI*n)*[(n/e)^n]  
+假设 a*10^b = n!  
+     c = lg√(2*PI*n)+  nlg(n/e)
+     b+lga = c
+     b = (int)c                位数减一。
+    
+     a = 10^(c-b) 
+
+*/
+string fac6(int n){
+    const double PI = 3.14159265358979323846264338327950288419716939937510582097494459230781;
+    const double E = 2.718281828459045235360287471352662497757247093699959574966967627724076;
+    double c = log10(sqrt(2*PI*n))+n*log10(n/E);
+    int b = (int)c;
+    double a = pow(10, c-(double)b);
+    return to_string(a)+"e+"+to_string(b);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include<cstdio>
+#include<algorithm>
+#include<vector>
+using namespace std;
+/*
+n(logn)^2
+
+FFT  f(x) = a1+b1x+c1x^2
+     g(x) = a2+b2x+c2x^2
+卷积  h(x) = f(x)*g(x)
+    向量 a= [a1, b1, c1]
+    向量 b= [a2, b2, c2]
+系数表示法相乘时：a*b复杂度为  a.size*b.size = n^2;
+
+点值表示：N+1个点，可以唯一确定一个上界为N的多项式
+f(x):  {{x0, y0},{x1, y1},{x2, y2}, {x3, y3}}
+g(x):  {{x0, g0},{x1, g1},{x2, g2}, {x3, g3}}
+
+f(x)*g(x) = {{x0, y0*g0},{x1, y1*g1}, {x2, y2*g2},{x3,y3*g3}}
+
+通过点值表示法两个多项式的乘积可以在复杂度为O(n)内完成。
+同时将f(x)和g(x)的点值表示同时扩大一倍的点，相乘后可以确定f(x)*g(x)的系数。
+
+
+问题演变为：将系数表示法-> 点值表示法-> 点值相乘 -> 系数表示法
+
+通过傅里叶变换和逆傅里叶变换：
+    选取特点的点值表示，可以将变换的复杂度降为 NlogN
+
+通过单位复根完成点值到系数的相互转换
+    e^(i*u) = cos(u)+sin(u)*i    其中 √-1 = i
+    --> e^(i*π) = -1
+n次单位复根：w,  对于w有  w^n = 1。其中n = {0,1,...,n}  
+w = e^(2πki/n)             w^n = e^(2πki) = e^[(πi)*2k] = (-1)^(2*k) = 1
+
+对于任意一个二项式系数表示的式子A(x) 有：
+A0(x) = a+cx+ex^2...  偶数项系数
+A1(x) = b+dx+fx^2...   奇数项系数
+A(x) = A0(x^2)+x*A1(x^2)
+
+求A(x) 的单位复根（点值表示的非一般形式）转为求参数为X^2的单位复根
+w0, w1,w2, ..., wn  转为 (w0)^2, w(1)^2, .., w(n)^2
+
+根据 单位复根折半定理，原问题转换为n/2个n/2次单位复根。每次分解使得问题规模缩小一半
+
+通过w = e^(2πki/n) 对表达式递归分治求值。得到一个列向量 y。
+y = V*a  其中V是单位复根的矩阵，a是系数矩阵，y为值矩阵
+求解该矩阵的值为插值（通过点值表示法求系数)
+a = y* v^-1
+
+a = n/1∑yw^(-k*j)   (k从0->n-1, y =在k处的值， w = 单位复根)
+
+将w^(-kj) 变为 w^(kj)，该式子和系数转点值的方式一样。同样可以递归分解在nlogn的复杂度内解决
+
+
+
+快速傅里叶变换依赖浮点数的计算。
+
+利用数论中的原根可以避免浮点数的计算。NTT 快速数论变换
+
+
+*/
+
+typedef long long ll;
+//宽度
+const int N=1e6+10;
+//质数
+const ll P=998244353;
+//g^(qn) = 1%p
+const ll G=3;
+ll pow(ll a,ll n){
+    ll ret=1;
+    while(n){
+        if(n&1)ret=ret*a%P;
+        a=a*a%P;
+        n>>=1;
+    }
+    return ret;
+}
+void ntt(ll *a,int n,int op){
+    static ll* const pos=new ll[N];
+    static int last_n=-1;
+    if(last_n!=n){
+        last_n=n;
+        pos[0]=0;
+        for(int i=1;i<n;i++){
+            pos[i]=(pos[i>>1]>>1)|((i&1)*(n>>1));
+        }
+    }
+    for(int i=0;i<n;i++){
+        if(i<pos[i]){
+            swap(a[i],a[pos[i]]);
+        }
+        
+    }
+    
+    ll A,B,w1,wi;
+    for(int l=1;l<n;l<<=1){
+        w1=pow(G,(P-1)/(l<<1));
+        if(op==-1){
+            w1=pow(w1,P-2);
+        }
+        
+        for(int i=0;i<n;i+=l<<1){
+            wi=1;
+            for(int j=0;j<l;j++,wi=wi*w1%P){
+                A=a[i+j];
+                B=a[i+j+l]*wi%P;
+                a[i+j]=(A+B)%P;
+                a[i+j+l]=(P+A-B)%P;
+            }
+        }
+    }
+}
+class Int{
+    private:
+        vector<ll>data;
+        Int(const vector<ll> data_):data(data_){
+        }
+    public:
+        Int(ll a=0){
+            do{
+                data.push_back(a%10);
+                a/=10;
+            }while(a);
+        }
+        int len()const{
+            return data.size();
+        }
+        ll get(int i)const{
+            return data[i];
+        }
+        Int operator*(const Int a_)const{
+            static ll* const a=new ll[N];
+            static ll* const b=new ll[N];
+            int n=1;
+            while(n<=(int)data.size()+(int)a_.data.size()){
+                n<<=1;
+            }
+            
+            for(int i=0;i<(int)data.size();i++){
+                a[i]=data[i];
+            }
+            
+            for(int i=(int)data.size();i<n;i++){
+                a[i]=0;
+            }
+            for(int i=0;i<(int)a_.data.size();i++){
+                b[i]=a_.data[i];
+            }
+            
+            for(int i=(int)a_.data.size();i<n;i++){
+                b[i]=0;
+            }
+            
+            ntt(a,n,1);
+            ntt(b,n,1);
+            vector<ll>c(n,0);
+            for(int i=0;i<n;i++){
+                c[i]=a[i]*b[i]%P;
+            }
+            
+            ntt(c.data(),n,-1);
+            ll l=pow(n,P-2);
+            for(int i=0;i<n;i++){
+                c[i]=c[i]*l%P;
+            }
+            
+            for(int i=0;i+1<n;i++){
+                c[i+1]+=c[i]/10;
+                c[i]%=10;
+            }
+            while(!c.back()){
+                c.pop_back();
+            }
+            
+            return c;
+        }
+};
+Int multiply(int begin,int end){
+    if(begin==end){
+        return Int(begin);
+    }
+    
+    int mm=begin+(end-begin)/2;
+    return multiply(begin,mm)*multiply(mm+1,end);
+}
+
+int main(){
+    int n = 100000;
+    
+    Int ans=multiply(1,n);
+    
+    string res = "";
+    for(int i =ans.len()-1; i>=0;i--){
+        res.append(to_string(ans.get(i)));
+    }
+    cout<<res<<endl;
+    return 0;
+}
